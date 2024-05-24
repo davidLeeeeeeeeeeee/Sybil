@@ -56,7 +56,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 我们仅仅使用了官方提供的2024-05-15-snapshot1_transactions.csv数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
 
 只需要依此执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
-
+<blockquote>
 1.  `filter_10_tx_count_01.py`的作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
 
 2.  `filter_del_initialList_02.py`的作用是从LayerZero官方公布的女巫地址中，筛掉重叠的部分。
@@ -64,7 +64,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 3.  `filter_20group_03.py`的作用是选出第一笔，第三笔，第五笔，最后一笔合约地址完全相同的adress然后group操作，并且在剩下的数据中，保留address count 大于20个的巫女簇。
 
 4.  `filter_day_std_04.py`的作用是选出这A、B、C、D四个action的执行时间(同一天或两天)都高度一致的address，这意味着不仅合约地址一致，连执行的时间都是一致的。
-
+</blockquote>
 经过层层筛选，我们发现保留下来的地址还具备tx_count , avg_swap_usd, LZ_Age_In_Days的高度一致性，所以我们断定他们绝对是女巫地址。
 
 ## 数据解释Sybil_Address135_day1.csv
