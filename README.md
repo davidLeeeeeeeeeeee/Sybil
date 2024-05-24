@@ -53,30 +53,21 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 这还仅仅计算了合约顺序相等的情况，如果考虑到tx_count、平均交易金额（USD）、这些行为发生的时间等条件,那么这两个概率都会持续增加而接近 100%。
 
 ### 方法
-我们在dune.on_chain_behavior_consistency_analysis.sql能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
+我们仅仅使用了官方提供的2024-05-15-snapshot1_transactions.csv数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
 
-后续将csv文件下载下来合并所有的csv,再依次执行deal_time.py、std_output.py、forth.py、five.py脚本。得到Sybil_Report_Address2.md文件。
+只需要依此执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
 
-## 数据解释Sybil_Report_Address1.md
-| user_address                               | first_seen_date   | from                                       |   occurrence_count | source_chain   |   occurrence_count_std |
-|:-------------------------------------------|:------------------|:-------------------------------------------|-------------------:|:---------------|-----------------------:|
-| 0xf7e10ae6b052bc1452139043b00d49a80fa9a3d5 | 2023-02-21        | 0x192553385d46bc946a35c0870c876cee52881c08 |                 24 | arbitrum       |               3.91064  |
+`filter_10_tx_count_01.py`的作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
 
+`filter_del_initialList_02.py`的作用是从LayerZero官方公布的女巫地址中，筛掉重叠的部分。
 
+`filter_20group_03.py`的作用是选出第一笔，第三笔，第五笔，最后一笔合约地址完全相同的adress然后group操作，并且在剩下的数据中，保留address count 大于20个的巫女簇。
 
-user_address:女巫地址。
+`filter_day_std_04.py`的作用是选出这A、B、C、D四个action的执行时间(同一天或两天)都高度一致的address，这意味着不仅合约地址一致，连执行的时间都是一致的。
 
-first_seen_date：该地址的全网第一笔交易时间，即资金分发到该地址。
+经过层层筛选，我们发现保留下来的地址还具备tx_count , avg_swap_usd, LZ_Age_In_Days的高度一致性，所以我们断定他们绝对是女巫地址。
 
-from：资金是来自哪个地址的。
-
-occurrence_count：就是tx count,即该地址在LayerZero上一共发生过多少笔tx。
-
-source_chain：该地址全网第一次是在哪个链上被激活的。
-
-occurrence_count_std：该女巫控制的所有地址在LayerZero上tx count的标准差，用来衡量它的tx count变化波动，越小说明女巫的概率越大。
-
-## 数据解释Sybil_Report_Address2.md
+## 数据解释Sybil_Address135_day1.csv
 | SENDER_WALLET | tx_count | avg_swap_usd | Sybil_number | LZ_Age_In_Days | Activate_Date | date_1 | date_2 | date_3 | date_4 | date_5 | date_6 | date_7 | date_8 | date_9 | date_10 | last_date | last_date_2 | action_1 | action_2 | action_3 | action_4 | action_5 | action_6 | action_7 | action_8 | action_9 | action_10 | last_contract | last_contract_2 | contract_tuple |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 0xa55d2cb234898724c2a5932663a7f9749bd92382 | 17 | 97.98357055611766 | 24 | 9 | 2024-01-31 | 2024-01-31 | 2024-02-25 | 2024-03-24 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-20 | 2024-04-20 | 2024-04-21 | 2024-04-24 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
