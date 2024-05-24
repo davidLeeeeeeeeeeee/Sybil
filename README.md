@@ -84,9 +84,9 @@ occurrence_count_std：该女巫控制的所有地址在LayerZero上tx count的�
 
 
 
-SENDER_WALLET:女巫地址。
+- SENDER_WALLET:女巫地址。
 
-tx_count：该地址在LayerZero上交易的tx数。
+- tx_count：该地址在LayerZero上交易的tx数。
 
 avg_swap_usd：该地址在LayerZero的每笔tx的平均swap资金。
 
