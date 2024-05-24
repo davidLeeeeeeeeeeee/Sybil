@@ -1,16 +1,15 @@
 # Reported Addresses
 
-`Sybil_Report_Address1.md`
-
-
-## 策略
+`Sybil_Address135_day1.csv`
+`Sybil_Address135_day2.csv`
+# Description
 根据链上行为的高度一致性和时间一致性筛选出女巫控制地址。
 
-具体来说，我们根据每个地址第一次（A行为）、第二次（B行为）、第三次（C行为）、最后一次（D行为）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成，并且他们在 LayerZero 上交互的交易数量高度一致，且他们的交易金额（USD）也高度一致，并且满足这些条件的地址数量超过 20 个的，
+具体来说，我们根据每个地址第一次（A行为）、第三次（B行为）、第五次（C行为）、最后一次（D行为）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成，并且他们在 LayerZero 上交互的交易数量高度一致，且他们的交易金额（USD）也高度一致，并且满足这些条件的地址数量超过 20 个的，
 
 我们可以认为他们是女巫地址。
 
-### 原因
+# Detailed Methodology & Walkthrough
 我们这么做的判断依据是
 #### 假设 LayerZero 上存在 100 个不同的 dApp（实际上有好几百个，为了简化计算这里假设100个）：
 <blockquote>
@@ -78,31 +77,38 @@ source_chain：该地址全网第一次是在哪个链上被激活的。
 occurrence_count_std：该女巫控制的所有地址在LayerZero上tx count的标准差，用来衡量它的tx count变化波动，越小说明女巫的概率越大。
 
 ## 数据解释Sybil_Report_Address2.md
-| address                                    | first_block_time          | first_destination_bridge_contract                                  | second_block_time         | second_destination_bridge_contract                                 | third_block_time          | third_destination_bridge_contract                                  | last_block_time           | last_destination_bridge_contract                                   |   tx_count |   average_amount_usd |   sybil_number |
-|:-------------------------------------------|:--------------------------|:-------------------------------------------------------------------|:--------------------------|:-------------------------------------------------------------------|:--------------------------|:-------------------------------------------------------------------|:--------------------------|:-------------------------------------------------------------------|-----------:|---------------------:|---------------:|
-| 0x51903df080db907d2788be785975ef72291adf68 | 2023-08-09 20:12:43+00:00 | 0x777c19834a1a2ff6353a1e9cfb7c799ed7943a11                         | 2023-08-10 22:14:46+00:00 | 0x6694340fc020c5e6b96567843da2df01b2ce1eb6                         | 2023-08-10 22:18:26+00:00 | 0xb0d502e938ed5f4df2e681fe6e419ff29631d62b                         | 2024-04-28 07:42:30+00:00 | 0xf6b88c4a86965170dd42dbb8b53e790b3490b912                         |        321 |             43.1709  |           6348 |
+| SENDER_WALLET | tx_count | avg_swap_usd | Sybil_number | LZ_Age_In_Days | Activate_Date | date_1 | date_2 | date_3 | date_4 | date_5 | date_6 | date_7 | date_8 | date_9 | date_10 | last_date | last_date_2 | action_1 | action_2 | action_3 | action_4 | action_5 | action_6 | action_7 | action_8 | action_9 | action_10 | last_contract | last_contract_2 | contract_tuple |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0xa55d2cb234898724c2a5932663a7f9749bd92382 | 17 | 97.98357055611766 | 24 | 9 | 2024-01-31 | 2024-01-31 | 2024-02-25 | 2024-03-24 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-20 | 2024-04-20 | 2024-04-21 | 2024-04-24 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
 
 
 
-address:女巫地址。
 
-first_block_time：该地址在LayerZero的第一笔tx交易时间。
+SENDER_WALLET:女巫地址。
 
-first_destination_bridge_contract：该地址在LayerZero的第一笔tx的交易合约地址。
+tx_count：该地址在LayerZero上交易的tx数。
 
-second_block_time：该地址在LayerZero的第二笔tx交易时间。
+avg_swap_usd：该地址在LayerZero的每笔tx的平均swap资金。
 
-second_destination_bridge_contract：该地址在LayerZero的第二笔tx的交易合约地址。
+Sybil_number：女巫编号，同样的女巫编号为同一簇。
 
-third_block_time：该地址在LayerZero的第三笔tx交易时间。
+LZ_Age_In_Days：该地址在LayerZero的活跃天数。
 
-third_destination_bridge_contract：该地址在LayerZero的第三笔tx的交易合约地址。
+date_1~date_10：该地址在LayerZero的第一笔到第十笔tx的发生时刻。
+
+last_date：该地址在LayerZero的最后一笔tx交易时间。
+
+last_date_2：该地址在LayerZero的倒数第二笔tx的交易合约地址。
 
 last_block_time：该地址在LayerZero的最后一笔tx交易时间。
 
-last_destination_bridge_contract：该地址在LayerZero的最后一笔tx的交易合约地址。
+action_1~action_10：该地址在LayerZero的第一笔到第十笔tx的合约地址（DESTINATION_CONTRACT+SOURCE_CONTRACT）。
 
-tx_count：该地址在LayerZero上交易的tx数。
+last_contract：该地址在LayerZero的最后一笔tx的合约地址。
+
+last_contract_2： 该地址在LayerZero的倒数第二笔tx的合约地址。
+
+contract_tuple： 上面所有地址的元组。
 
 average_amount_usd：该地址在LayerZero上每笔tx的平均金额。
 # Reward Address (If Eligible)
