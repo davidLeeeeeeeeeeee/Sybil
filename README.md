@@ -88,28 +88,29 @@ occurrence_count_std：该女巫控制的所有地址在LayerZero上tx count的�
 
 - tx_count：该地址在LayerZero上交易的tx数。
 
-avg_swap_usd：该地址在LayerZero的每笔tx的平均swap资金。
+- avg_swap_usd：该地址在LayerZero的每笔tx的平均swap资金。
 
-Sybil_number：女巫编号，同样的女巫编号为同一簇。
+- Sybil_number：女巫编号，同样的女巫编号为同一簇。
 
-LZ_Age_In_Days：该地址在LayerZero的活跃天数。
+- LZ_Age_In_Days：该地址在LayerZero的活跃天数。
 
-date_1~date_10：该地址在LayerZero的第一笔到第十笔tx的发生时刻。
+- date_1~date_10：该地址在LayerZero的第一笔到第十笔tx的发生时刻。
 
-last_date：该地址在LayerZero的最后一笔tx交易时间。
+- last_date：该地址在LayerZero的最后一笔tx交易时间。
 
-last_date_2：该地址在LayerZero的倒数第二笔tx的交易合约地址。
+- last_date_2：该地址在LayerZero的倒数第二笔tx的交易合约地址。
 
-last_block_time：该地址在LayerZero的最后一笔tx交易时间。
+- last_block_time：该地址在LayerZero的最后一笔tx交易时间。
 
-action_1~action_10：该地址在LayerZero的第一笔到第十笔tx的合约地址（DESTINATION_CONTRACT+SOURCE_CONTRACT）。
+- action_1~action_10：该地址在LayerZero的第一笔到第十笔tx的合约地址（DESTINATION_CONTRACT+SOURCE_CONTRACT）。
 
-last_contract：该地址在LayerZero的最后一笔tx的合约地址。
+- last_contract：该地址在LayerZero的最后一笔tx的合约地址。
 
-last_contract_2： 该地址在LayerZero的倒数第二笔tx的合约地址。
+- last_contract_2： 该地址在LayerZero的倒数第二笔tx的合约地址。
 
-contract_tuple： 上面所有地址的元组。
+- contract_tuple： 上面所有地址的元组。
 
-average_amount_usd：该地址在LayerZero上每笔tx的平均金额。
+- average_amount_usd：该地址在LayerZero上每笔tx的平均金额。
+  
 # Reward Address (If Eligible)
 0x56646F6cEaf7C7684391B440Ac81B6Db31aBcf34
