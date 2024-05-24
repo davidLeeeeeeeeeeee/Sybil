@@ -55,7 +55,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 这还仅仅计算了合约顺序相等的情况，如果考虑到tx_count、平均交易金额（USD）、这些行为发生的时间等条件,那么这两个概率都会持续增加而接近 100%。
 
 ### 方法
-我们仅仅使用了官方提供的2024-05-15-snapshot1_transactions.csv数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
+我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
 
 只需要依此执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
 
