@@ -74,7 +74,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 经过层层筛选，我们发现保留下来的地址还具备tx_count , avg_swap_usd, LZ_Age_In_Days的高度一致性，所以我们断定他们绝对是女巫地址。
 
 ## 数据解释Sybil_Address135_day1.csv
-<img src="https://i.imgur.com/EWvKUMZ.png" alt="图片描述" width="500" height="600">
+<img src="https://i.imgur.com/EWvKUMZ.png" alt="图片描述" width="1250" height="600">
 
 
 
