@@ -1,8 +1,8 @@
 # Reported Addresses
 
-`Sybil_Address135_day1.csv`
+`Sybil_Address_day1.csv`
 
-`Sybil_Address135_day2.csv`
+`Sybil_Address_day2.csv`
 
 # Description
 根据链上行为的高度一致性和时间一致性筛选出女巫控制地址。
