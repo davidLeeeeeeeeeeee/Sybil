@@ -1,8 +1,8 @@
 # Reported Addresses
 
-`Sybil_Address_day1.csv`
+`Sybil_Address_day1.csv` 215个簇
 
-`Sybil_Address_day2.csv`
+`Sybil_Address_day2.csv` 402个簇
 
 # Description
 根据链上行为的高度一致性和时间一致性筛选出女巫控制地址。
@@ -60,11 +60,13 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 
 这还仅仅计算了合约顺序相等的情况，如果考虑到tx_count、平均交易金额（USD）、这些行为发生的时间等条件,那么这两个概率都会持续增加而接近 100%。
 
-### 方法
-#### 数据来源
-我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
 
-只需要依此执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
+#### 数据来源
+我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库
+#### 方法
+用纯python代码，就能够在L0的每个地址的所有交易数据中，选出A、B、C、D交互合约和时间符合条件的Sybil 地址。
+
+只需要依次执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
 
 <blockquote>
   
