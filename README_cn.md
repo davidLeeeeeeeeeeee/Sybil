@@ -7,7 +7,7 @@
 # Description
 根据链上行为的高度一致性和时间一致性筛选出女巫控制地址。
 
-具体来说，我们根据每个地址第一次（A行为）、第三次（B行为）、第五次（C行为）、最后一次（D行为）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成，并且他们在 LayerZero 上交互的交易数量高度一致，且他们的交易金额（USD）也高度一致，并且满足这些条件的地址数量超过 20 个的，
+具体来说，我们根据每个地址第一次（A transaction）、第三次（B transaction）、第五次（C transaction）、最后一次（D transaction）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成(比如2个地址他们的第一次都是同一天，就认为A transaction满足条件)，并且他们在 LayerZero 上交互的交易数量高度一致，且他们的交易金额（USD）也高度一致，并且满足这些条件的地址数量超过 20 个的，
 
 我们可以认为他们是女巫地址。
 
@@ -67,13 +67,13 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 
 3.  `filter_20group_03.py`的作用是选出第一笔，第三笔，第五笔，最后一笔合约地址完全相同的adress然后group操作，并且在剩下的数据中，保留address count 大于20个的巫女簇。
 
-4.  `filter_day_std_04.py`的作用是选出这A、B、C、D四个action的执行时间(同一天或两天)都高度一致的address，这意味着不仅合约地址一致，连执行的时间都是一致的。上面提到的 `Sybil_Address135_day1.csv` 就是设置为1day, `Sybil_Address135_day2.csv` 就是设置为2day.
+4.  `filter_day_std_04.py`的作用是选出这A、B、C、D四个action的执行时间(同一天或两天)都高度一致的address，这意味着不仅合约地址一致，连执行的时间都是一致的。上面提到的 `Sybil_Address_day1.csv` 就是设置为DAY=1, `Sybil_Address_day2.csv` 就是设置为DAY=2,如果您想复现我的结果，只需要改这一个参数（'DAY'）就能复现成功.
    
 
 </blockquote>
 经过层层筛选，我们发现保留下来的地址还具备tx_count , avg_swap_usd, LZ_Age_In_Days的高度一致性，所以我们断定他们绝对是女巫地址。
 
-## 数据解释Sybil_Address135_day1.csv
+## 数据解释Sybil_Address_day1.csv
 <img src="https://i.imgur.com/EWvKUMZ.png">
 
 
