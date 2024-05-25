@@ -1,51 +1,6 @@
 # Reported Addresses
 
 `Sybil_Address135_day1.csv`
-<div style="height: 200px; overflow-y: auto;">
-    <ul>
-        <li>项目 1</li>
-        <li>项目 2</li>
-        <li>项目 3</li>
-        <li>项目 4</li>
-        <li>项目 5</li>
-        <li>项目 6</li>
-        <li>项目 7</li>
-        <li>项目 8</li>
-        <li>项目 9</li>
-        <li>项目 10</li>
-                <li>项目 1</li>
-        <li>项目 2</li>
-        <li>项目 3</li>
-        <li>项目 4</li>
-        <li>项目 5</li>
-        <li>项目 6</li>
-        <li>项目 7</li>
-        <li>项目 8</li>
-        <li>项目 9</li>
-        <li>项目 10</li>
-                <li>项目 1</li>
-        <li>项目 2</li>
-        <li>项目 3</li>
-        <li>项目 4</li>
-        <li>项目 5</li>
-        <li>项目 6</li>
-        <li>项目 7</li>
-        <li>项目 8</li>
-        <li>项目 9</li>
-        <li>项目 10</li>
-                <li>项目 1</li>
-        <li>项目 2</li>
-        <li>项目 3</li>
-        <li>项目 4</li>
-        <li>项目 5</li>
-        <li>项目 6</li>
-        <li>项目 7</li>
-        <li>项目 8</li>
-        <li>项目 9</li>
-        <li>项目 10</li>
-        <!-- 更多项目 -->
-    </ul>
-</div>
 
 `Sybil_Address135_day2.csv`
 
