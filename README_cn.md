@@ -12,7 +12,7 @@
 才是Sybil地址。
 
 
-e.g. 假设有2个地址他们的第一次交易都是同一合约且同一天执行，就认为A transaction满足条件。同时当这两个地址B、C、D transaction也都满足的时候，就认为这两个地址受同一Sybil控制。
+e.g. 假设有2个地址他们的第一次交易都是同一合约且同一天执行，就认为A transaction满足条件。同时当这两个地址B、C、D transaction也都满足条件的时候，就认为这两个地址受同一Sybil控制。
 
 # Detailed Methodology & Walkthrough
 我们这么做的判断依据是
@@ -61,6 +61,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 这还仅仅计算了合约顺序相等的情况，如果考虑到tx_count、平均交易金额（USD）、这些行为发生的时间等条件,那么这两个概率都会持续增加而接近 100%。
 
 ### 方法
+#### 数据来源
 我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库，用纯python代码，能够L0的每个地址的所有tx数和A、B、C、D交互合约和时间选出。
 
 只需要依此执行`filter_10_tx_count_01.py`、`filter_del_initialList_02.py`、`filter_20group_03.py`、`filter_day_std_04.py`、就能够得到这批数据。
