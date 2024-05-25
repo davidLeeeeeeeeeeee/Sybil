@@ -102,9 +102,6 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 
 - last_contract_2： 该地址在LayerZero的倒数第二笔tx的合约地址。
 
-- contract_tuple： 上面所有地址的元组。
-
-- average_amount_usd：该地址在LayerZero上每笔tx的平均金额。
   
 # Reward Address (If Eligible)
 0x56646F6cEaf7C7684391B440Ac81B6Db31aBcf34
