@@ -7,9 +7,9 @@
 # Description
 根据链上行为的高度一致性和时间一致性筛选出女巫控制地址。
 
-具体来说，我们根据每个地址第一次（A transaction）、第三次（B transaction）、第五次（C transaction）、最后一次（D transaction）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成(比如2个地址他们的第一次都是同一天，就认为A transaction满足条件)。尽管我们筛选条件只有合约地址、时间，但是我们却发现他们的tx count、平均交易金额（USD）、unique active day也高度一致。除了上述的时间和合约地址的条件，我们还设置了同一簇地址数量超过 20 个的，
+具体来说，我们根据每个地址第一次（A transaction）、第三次（B transaction）、第五次（C transaction）、最后一次（D transaction）在 LayerZero 上交互合约都完全一致，并且这四次交互都在同一天以内完成。尽管我们筛选条件只有合约地址、时间，但是我们却发现他们的tx count、平均交易金额（USD）、unique active day也高度一致。除了上述的时间和合约地址的条件，我们还设置了同一簇地址数量超过 20 个的，
 才是Sybil地址。
-
+e.g. 假设有2个地址他们的第一次交易都是同一合约且同一天执行，就认为A transaction满足条件。同时当这两个地址B、C、D transaction也都满足的时候，就认为这两个地址受同一Sybil控制。
 
 # Detailed Methodology & Walkthrough
 我们这么做的判断依据是
