@@ -96,6 +96,8 @@ python filter_10_tx_count_01.py
 
 这句命令作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
 
+
+
 step 2.  
 
 ```python
@@ -106,6 +108,8 @@ python filter_del_initialList_02.py
 
 这句命令的作用是从LayerZero官方公布的女巫地址中，筛掉重叠的部分。
 
+
+
 step 3.  
 
 ```python
@@ -114,6 +118,8 @@ python filter_20group_03.py
 
 ```
 这句命令的作用是选出第一笔，第三笔，第五笔，最后一笔合约地址完全相同的adress然后group操作，并且在剩下的数据中，保留address count 大于20个的巫女簇。
+
+
 
 step 4. 
 
