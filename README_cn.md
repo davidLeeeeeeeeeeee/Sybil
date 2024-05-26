@@ -66,7 +66,7 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 #### 方法
 ##### 快速开始
 
-\`\`\`
+\`\`\`python
 
 git clone https://github.com/davidLeeeeeeeeeeee/Sybil.git
 cd Sybil
