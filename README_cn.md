@@ -83,7 +83,7 @@ pip install -r requirements.txt
 
 <blockquote>
   
-1.  `filter_10_tx_count_01.py`的作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
+1.  ``` python filter_10_tx_count_01.py```的作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
 
 2.  `filter_del_initialList_02.py`的作用是从LayerZero官方公布的女巫地址中，筛掉重叠的部分。
 
