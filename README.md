@@ -1,122 +1,160 @@
 # Reported Addresses
 
-`Sybil_Address135_day1.csv`
-
-`Sybil_Address135_day2.csv`
-
+`Sybil_Address_day1.csv` 215 clusters
+https://drive.google.com/file/d/17ft_bcUpRruyqll9tGvpjZUslQp_8BxK/view?usp=drive_link
+`Sybil_Address_day2.csv` 402 clusters
+https://drive.google.com/file/d/1ayFfrsrF-ZSIyNQ8OIwSEoJhFphbEZmc/view?usp=drive_link
 # Description
+Sybil-controlled addresses are identified based on the high consistency of on-chain behavior and timing.
 
-Identifying witch-controlled addresses based on the consistency in actions across the LayerZero network in both height and time.
 
-Specifically, we filter out witch-controlled addresses based on the complete consistency of interactions with contracts on LayerZero for the first (Action A), third (Action B), fifth (Action C), and last (Action D) interactions, all completed within the same day. Additionally, these four interactions have highly consistent transaction counts and USD amounts, and if the number of addresses meeting these criteria exceeds 20, we consider them witch addresses.
+Specifically, we select addresses where their first (A transaction), third (B transaction), fifth (C transaction), and last (D transaction) interactions on LayerZero are identical, and all four interactions are completed within the same day. Although our selection criteria are limited to contract address and time, we found their tx count, average transaction amount (USD), and unique active day are also highly consistent. Besides the aforementioned time and contract address criteria, we also set a condition that there must be more than 20 addresses in the same cluster to be classified as Sybil addresses.
+
+
+e.g., If two addresses have their first transaction on the same contract and the same day, it's considered that the A transaction meets the criteria. If their B, C, and D transactions also meet the conditions, then these two addresses are considered to be controlled by the same Sybil.
 
 # Detailed Methodology & Walkthrough
-
-Our assessment is based on the following assumptions:
-
-#### Assuming the existence of 100 different dApps on LayerZero (in reality, there are several hundred, but for simplification, let's assume 100):
-
+Our reasoning is based on the assumption that:
+#### Assuming there are 100 different dApps on LayerZero (actually several hundred, but let's simplify to 100):
 <blockquote>
 
-The probability of a completely random user having identical sequences of actions:
+The probability that four sequential actions by completely random users are identical is:
 
-Probability of Action A * Probability of Action B * Probability of Action C * Probability of Action D, i.e.,
+Probability of A * Probability of B * Probability of C * Probability of D, which is:
 
 1/100 * 1/100 * 1/100 * 1/100 ≈ 0.00000001
 
-Assuming there are 20 addresses meeting these criteria, the probability that they are regular users and not witch users is:
+If there are 20 accounts that meet these criteria, and they are ordinary users, not Sybil users, their probability is:
 
-0.00000001^20
+0.00000001<sup>20</sup>
 
-So the probability that they are sybil is:
+Thus, the probability they are Sybil-controlled is:
 
-**1 - 1/100000000^20 ≈ 99.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999%**
+1 - 1/100000000<sup>20</sup> ≈ 99.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999%
 
 </blockquote>
 
-#### Considering factors like popular dApps and influencer recommendations, let's narrow down the dApp selection to 20:
+#### Considering factors like popular dApps and endorsements by influencers, let's reduce the range of dApp choices to 20:
 
 <blockquote>
 
-The probability of a completely random user having identical sequences of actions:
+The probability that the sequence of actions by random users is identical:
 
 1/20 * 1/20 * 1/20 * 1/20 ≈ 0.00000625
 
-Assuming there are 20 addresses meeting these criteria, the probability that they are regular users and not witch users is:
+If there are 20 accounts that meet these criteria, and they are ordinary users, not Sybil users, their probability is:
 
-0.00000625^20
+0.00000625<sup>20</sup>
 
-So the probability that they are sybil is:
+Thus, the probability they are Sybil-controlled is:
 
-**1 - 0.00000625^20 ≈ 99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999992%**
+1 - 0.00000625<sup>20</sup> ≈ 99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999992%
 
+This probability is still extraordinarily high.
 </blockquote>
 
-This probability is still quite high.
+This calculation only considers the case where the contract sequence is equal. If we consider additional conditions like tx_count, average transaction amount (USD), and the timing of these actions, both probabilities will increase and approach 100%.
 
-This calculation only considers the case where contract sequences are equal. If we consider additional conditions such as tx_count, average transaction amount (USD), and the time of these actions, both probabilities will continue to increase and approach 100%.
+#### Data Source
 
-### Method
+We only used the official `2024-05-15-snapshot1_transactions.csv` database.
 
-We only used the official `2024-05-15-snapshot1_transactions.csv` database and pure Python code to select all addresses' tx counts and A, B, C, D interaction contracts and times in LayerZero.
+#### Method
 
-By executing `filter_10_tx_count_01.py`, `filter_del_initialList_02.py`, `filter_20group_03.py`, `filter_day_std_04.py` in sequence, we can obtain this batch of data.
+##### Quick Start
+
+```python
+
+git clone https://github.com/davidLeeeeeeeeeeee/Sybil.git
+
+cd Sybil
+
+pip install -r requirements.txt
+
+```
+
+With pure Python code, it's possible to select Sybil addresses in L0's transaction data for each address where the contract and timing of interactions A, B, C, and D meet the conditions.
+
+You just need to execute `filter_10_tx_count_01.py`, `filter_del_initialList_02.py`, `filter_20group_03.py`, `filter_day_std_04.py` in sequence to obtain this batch of data.
 
 <blockquote>
+  
+step 1.  
 
-1. The purpose of `filter_10_tx_count_01.py` is to filter out all data with a tx count less than 10, retain all addresses with a tx count > 10, and consolidate the times and contract addresses of the remaining addresses' first to tenth transactions.
+```python
 
-2. The purpose of `filter_del_initialList_02.py` is to remove overlapping parts from the witch addresses published by LayerZero.
+python filter_10_tx_count_01.py
 
-3. The purpose of `filter_20group_03.py` is to select addresses with completely identical contract addresses for the first, third, fifth, and last transactions, then perform grouping, and among the remaining data, retain the clusters with an address count greater than 20 witches.
+```
+This command filters out all data with tx count less than 10, retaining all addresses with tx count > 10, and groups the contract addresses and timing of the first 10 transactions of the remaining addresses together.
 
-4. The purpose of `filter_day_std_04.py` is to select addresses where the execution times of these A, B, C, D actions (within the same day or two days) are highly consistent. This means not only are the contract addresses identical but also the execution times are consistent. The files `Sybil_Address135_day1.csv` and `Sybil_Address135_day2.csv` are set for 1 day and 2 days, respectively.
+step 2.
+
+```python
+
+python filter_del_initialList_02.py
+
+```
+
+This command filters out the overlapping parts from the Sybil addresses officially announced by LayerZero, eliminating duplicates.
+
+step 3.
+
+```python
+
+python filter_20group_03.py
+
+```
+This command selects addresses where the contract addresses of the first, third, fifth, and last transactions are identical, then groups them, and retains clusters where the count of addresses exceeds 20.
+
+step 4.
+
+```python
+
+python filter_day_std_04.py
+
+```
+This command selects addresses where the execution timing of actions A, B, C, and D (same day or two days) is highly consistent, indicating not only identical contract addresses but also consistent execution timing. The mentioned Sybil_Address_day1.csv sets DAY=1, and Sybil_Address_day2.csv sets DAY=2. If you want to replicate my results, you only need to change this parameter ('DAY') to succeed.
 
 </blockquote>
+After layers of filtering, we found that the retained addresses also exhibit high consistency in tx_count, avg_swap_usd, and LZ_Age_In_Days, thus we are confident they are Sybil addresses.
 
-After layers of filtering, we found that the remaining addresses also have a high consistency in tx_count, avg_swap_usd, and LZ_Age_In_Days, so we conclude that they are definitely witch addresses.
+## Data Display for Sybil_Address_day1.csv
 
-## Data Explanation for Sybil_Address135_day1.csv
-| SENDER_WALLET | tx_count | avg_swap_usd | Sybil_number | LZ_Age_In_Days | Activate_Date | date_1 | date_2 | date_3 | date_4 | date_5 | date_6 | date_7 | date_8 | date_9 | date_10 | last_date | last_date_2 | action_1 | action_2 | action_3 | action_4 | action_5 | action_6 | action_7 | action_8 | action_9 | action_10 | last_contract | last_contract_2 | contract_tuple |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0xa55d2cb234898724c2a5932663a7f9749bd92382 | 17 | 97.98357055611766 | 24 | 9 | 2024-01-31 | 2024-01-31 | 2024-02-25 | 2024-03-24 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-20 | 2024-04-20 | 2024-04-21 | 2024-04-24 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x79f3649d8084ea76f91700eefc3bc1493fb3d731 | 17 | 91.60472793264704 | 24 | 9 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-24 | 2024-04-19 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-21 | 2024-04-22 | 2024-04-24 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x59781ead62035616f9c4852dead0dacbe3b84f33 | 17 | 95.930526926 | 24 | 10 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-24 | 2024-04-19 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-21 | 2024-04-22 | 2024-04-23 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x123450714b677b1ae24dc28959c7e833159e4321+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x529ed86ad8f1b47a7482a492e0d82fe1f7c0b886 | 17 | 98.09099831394116 | 24 | 9 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-25 | 2024-04-19 | 2024-04-19 | 2024-04-19 | 2024-04-20 | 2024-04-21 | 2024-04-21 | 2024-04-23 | 2024-04-28 | 2024-04-28 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x3431e1d987d442074e0138baf60c84e228f72c42 | 17 | 97.48251620964706 | 24 | 10 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-25 | 2024-04-20 | 2024-04-20 | 2024-04-20 | 2024-04-22 | 2024-04-24 | 2024-04-25 | 2024-04-26 | 2024-04-29 | 2024-04-29 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x3e65d0a2f2541a2558b9852a2b9f697791f136ed | 17 | 94.61222562688236 | 24 | 8 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-25 | 2024-04-21 | 2024-04-21 | 2024-04-21 | 2024-04-21 | 2024-04-24 | 2024-04-24 | 2024-04-25 | 2024-05-01 | 2024-05-01 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0x042002711e4d7a7fc486742a85dbf096beeb0420+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x123450714b677b1ae24dc28959c7e833159e4321+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0xa4218e1f39da4aadac971066458db56e901bcbde+0x29d096cd18c0da7500295f082da73316d704031a | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
-| 0x72161da918b89602e71d9eeb759a7d78017ebdd5 | 17 | 98.23553773994117 | 24 | 8 | 2024-01-31 | 2024-01-31 | 2024-02-24 | 2024-03-24 | 2024-04-21 | 2024-04-21 | 2024-04-21 | 2024-04-21 | 2024-04-24 | 2024-04-24 | 2024-04-26 | 2024-04-30 | 2024-04-30 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x701a95707a0290ac8b90b3719e8ee5b210360883+0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398 | 0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd | 0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd+0x701a95707a0290ac8b90b3719e8ee5b210360883 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222 | 0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x042002711e4d7a7fc486742a85dbf096beeb0420 | 0x222228060e7efbb1d78bb5d454581910e3922222+0x222228060e7efbb1d78bb5d454581910e3922222 | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | 0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde | ('0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0x0000049f63ef0d60abe49fdd8bebfa5a68822222+0x0000049f63ef0d60abe49fdd8bebfa5a68822222', '0xaf54be5b6eec24d6bfacf1cce4eaf680a8239398+0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd', '0x29d096cd18c0da7500295f082da73316d704031a+0xa4218e1f39da4aadac971066458db56e901bcbde') |
+<img src="https://i.imgur.com/DOkTOVb.png">
+<img src="https://i.imgur.com/isYfOMR.png">
+<img src="https://i.imgur.com/5MIwRqx.png">
 
+### Visual Analysis
 
+From the tables, we can clearly see that although our selection criteria include only the 1st, 3rd, 5th, and last transactions, these Sybil addresses maintain a high degree of consistency in tx count, average swap usd, independent active days, and even other actions' time and addresses.
 
+### Parameter Explanation
 
 - SENDER_WALLET: Sybil address.
 
-- tx_count: The number of transactions the address has on LayerZero.
+- tx_count: Number of transactions this address has on LayerZero.
 
-- avg_swap_usd: The average swap funds per transaction of the address on LayerZero.
+- avg_swap_usd: Average swap amount in USD per transaction for this address on LayerZero.
 
-- Sybil_number: Witch number, same witch number indicates the same cluster.
+- Sybil_number: Sybil number, the same number indicates the same cluster.
 
-- LZ_Age_In_Days: The active days of the address on LayerZero.
+- LZ_Age_In_Days: Active days of this address on LayerZero.
 
-- date_1~date_10: The occurrence time of the first to tenth transactions of the address on LayerZero.
+- date_1~date_10: The moments of the first to tenth transactions of this address on LayerZero.
 
-- last_date: The transaction time of the last transaction of the address on LayerZero.
+- last_date: The transaction time of the last transaction of this address on LayerZero.
 
-- last_date_2: The transaction time of the second-to-last transaction of the address on LayerZero.
+- last_date_2: Contract address of the penultimate transaction of this address on LayerZero.
 
-- last_block_time: The transaction time of the last transaction of the address on LayerZero.
+- last_block_time: Transaction time of the last transaction of this address on LayerZero.
 
-- action_1~action_10: The contract addresses (DESTINATION_CONTRACT+SOURCE_CONTRACT) of the first to tenth transactions of the address on LayerZero.
+- action_1~action_10: Contract addresses of the first to tenth transactions of this address on LayerZero (DESTINATION_CONTRACT+SOURCE_CONTRACT).
 
-- last_contract: The contract address of the last transaction of the address on LayerZero.
+- last_contract: Contract address of the last transaction of this address on LayerZero.
 
-- last_contract_2: The contract address of the second-to-last transaction of the address on LayerZero.
+- last_contract_2: Contract address of the penultimate transaction of this address on LayerZero.
 
-- contract_tuple: The tuple of all the above addresses.
+  # Reward Address (If Eligible)
 
-- average_amount_usd: The average amount per transaction of the address on LayerZero.
-
-# Reward Address (If Eligible)
-0x56646F6cEaf7C7684391B440Ac81B6Db31aBcf34
+  0x56646F6cEaf7C7684391B440Ac81B6Db31aBcf34
