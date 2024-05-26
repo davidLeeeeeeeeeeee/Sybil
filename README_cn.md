@@ -125,8 +125,8 @@ python filter_day_std_04.py
 </blockquote>
 经过层层筛选，我们发现保留下来的地址还具备tx_count , avg_swap_usd, LZ_Age_In_Days的高度一致性，所以我们断定他们绝对是女巫地址。
 
-## 数据解释Sybil_Address_day1.csv
-<img src="https://i.imgur.com/EWvKUMZ.png">
+## 数据展示Sybil_Address_day1.csv
+<img src="https://i.imgur.com/DOkTOVb.png">
 
 ### 直观分析
 从表格中我们可以清晰的看到，虽然我们的筛选条件只有第1,3,5，和最后一笔 tx，但是这批Sybil地址在tx count , 平均swap_usd,独立活跃天数，甚至在其他的action的time和address也能高度保持一致。
