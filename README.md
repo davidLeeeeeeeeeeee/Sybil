@@ -30,7 +30,7 @@ If there are 20 accounts that meet these criteria, and they are ordinary users, 
 
 Thus, the probability they are Sybil-controlled is:
 
-1 - 1/100000000<sup>20</sup> ≈ 99.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999%
+**1 - 1/100000000<sup>20</sup> ≈ 99.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999%**
 
 </blockquote>
 
@@ -48,7 +48,7 @@ If there are 20 accounts that meet these criteria, and they are ordinary users, 
 
 Thus, the probability they are Sybil-controlled is:
 
-1 - 0.00000625<sup>20</sup> ≈ 99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999992%
+**1 - 0.00000625<sup>20</sup> ≈ 99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999992%**
 
 This probability is still extraordinarily high.
 </blockquote>
@@ -86,7 +86,7 @@ step 1.
 python filter_10_tx_count_01.py
 
 ```
-This command filters out all data with tx count less than 10, retaining all addresses with tx count > 10, and groups the contract addresses and timing of the first 10 transactions of the remaining addresses together.
+**This command filters out all data with tx count less than 10, retaining all addresses with tx count > 10, and groups the contract addresses and timing of the first 10 transactions of the remaining addresses together.**
 
 step 2.
 
@@ -96,7 +96,7 @@ python filter_del_initialList_02.py
 
 ```
 
-This command filters out the overlapping parts from the Sybil addresses officially announced by LayerZero, eliminating duplicates.
+**This command filters out the overlapping parts from the Sybil addresses officially announced by LayerZero, eliminating duplicates.**
 
 step 3.
 
@@ -105,7 +105,7 @@ step 3.
 python filter_20group_03.py
 
 ```
-This command selects addresses where the contract addresses of the first, third, fifth, and last transactions are identical, then groups them, and retains clusters where the count of addresses exceeds 20.
+**This command selects addresses where the contract addresses of the first, third, fifth, and last transactions are identical, then groups them, and retains clusters where the count of addresses exceeds 20.**
 
 step 4.
 
@@ -114,10 +114,11 @@ step 4.
 python filter_day_std_04.py
 
 ```
-This command selects addresses where the execution timing of actions A, B, C, and D (same day or two days) is highly consistent, indicating not only identical contract addresses but also consistent execution timing. The mentioned Sybil_Address_day1.csv sets DAY=1, and Sybil_Address_day2.csv sets DAY=2. If you want to replicate my results, you only need to change this parameter ('DAY') to succeed.
+**This command selects addresses where the execution timing of actions A, B, C, and D (same day or two days) is highly consistent, indicating not only identical contract addresses but also consistent execution timing. The mentioned Sybil_Address_day1.csv sets DAY=1, and Sybil_Address_day2.csv sets DAY=2. If you want to replicate my results, you only need to change this parameter ('DAY') to succeed.**
 
 </blockquote>
-After layers of filtering, we found that the retained addresses also exhibit high consistency in tx_count, avg_swap_usd, and LZ_Age_In_Days, thus we are confident they are Sybil addresses.
+
+**After layers of filtering, we found that the retained addresses also exhibit high consistency in tx_count, avg_swap_usd, and LZ_Age_In_Days, thus we are confident they are Sybil addresses.**
 
 ## Data Display for Sybil_Address_day1.csv
 
