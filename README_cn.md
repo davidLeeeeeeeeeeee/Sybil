@@ -62,8 +62,11 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 
 
 #### 数据来源
+
 我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库
+
 #### 方法
+
 ##### 快速开始
 
 ```python
@@ -129,6 +132,7 @@ python filter_day_std_04.py
 <img src="https://i.imgur.com/DOkTOVb.png">
 <img src="https://i.imgur.com/isYfOMR.png">
 <img src="https://i.imgur.com/5MIwRqx.png">
+
 ### 直观分析
 从表格中我们可以清晰的看到，虽然我们的筛选条件只有第1,3,5，和最后一笔 tx，但是这批Sybil地址在tx count , 平均swap_usd,独立活跃天数，甚至在其他的action的time和address也能高度保持一致。
 ### 参数解释
