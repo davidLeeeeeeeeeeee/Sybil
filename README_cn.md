@@ -85,21 +85,40 @@ pip install -r requirements.txt
   
 step 1.  
 
-``` python filter_10_tx_count_01.py```
+```python
+
+python filter_10_tx_count_01.py
+
+```
 
 这句命令作用是筛掉tx count小于10的所有数据，保留tx count > 10的所有address,再把剩下的address的1~10笔交易的时间和合约地址归拢到一起。
 
 step 2.  
 
-```python filter_del_initialList_02.py```
+```python
+
+python filter_del_initialList_02.py
+
+```
 
 这句命令的作用是从LayerZero官方公布的女巫地址中，筛掉重叠的部分。
 
-step 3.  ```python filter_20group_03.py```
+step 3.  
+
+```python
+
+python filter_20group_03.py
+
+```
 这句命令的作用是选出第一笔，第三笔，第五笔，最后一笔合约地址完全相同的adress然后group操作，并且在剩下的数据中，保留address count 大于20个的巫女簇。
 
-step 4.  
-```python filter_day_std_04.py```
+step 4. 
+
+```python
+
+python filter_day_std_04.py
+
+```
 这句命令的作用是选出这A、B、C、D四个action的执行时间(同一天或两天)都高度一致的address，这意味着不仅合约地址一致，连执行的时间都是一致的。上面提到的 `Sybil_Address_day1.csv` 就是设置为DAY=1, `Sybil_Address_day2.csv` 就是设置为DAY=2,如果您想复现我的结果，只需要改这一个参数（'DAY'）就能复现成功.
    
 
