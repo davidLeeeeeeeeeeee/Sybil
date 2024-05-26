@@ -65,11 +65,15 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 我们仅仅使用了官方提供的`2024-05-15-snapshot1_transactions.csv`数据库
 #### 方法
 ##### 快速开始
+
 \`\`\`
+
 git clone https://github.com/davidLeeeeeeeeeeee/Sybil.git
 cd Sybil
 pip install -r requirements.txt
+
 \`\`\`
+
 
 用纯python代码，就能够在L0的每个地址的所有交易数据中，选出A、B、C、D交互合约和时间符合条件的Sybil 地址。
 
