@@ -85,8 +85,9 @@ A行为概率 * B行为概率 * C行为概率 * D行为概率  即：
 ## 数据解释Sybil_Address_day1.csv
 <img src="https://i.imgur.com/EWvKUMZ.png">
 
-
-
+### 直观分析
+从表格中我们可以清晰的看到，虽然我们的筛选条件只有1,3,5，和最后一笔 tx，但是这批Sybil地址在tx count , 平均swap_usd,独立活跃天数，甚至在其他的action的time和address也能高度保持一致。
+### 参数解释
 - SENDER_WALLET:女巫地址。
 
 - tx_count：该地址在LayerZero上交易的tx数。
