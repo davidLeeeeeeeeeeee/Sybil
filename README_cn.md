@@ -127,7 +127,8 @@ python filter_day_std_04.py
 
 ## 数据展示Sybil_Address_day1.csv
 <img src="https://i.imgur.com/DOkTOVb.png">
-
+<img src="https://i.imgur.com/isYfOMR.png">
+<img src="https://i.imgur.com/5MIwRqx.png">
 ### 直观分析
 从表格中我们可以清晰的看到，虽然我们的筛选条件只有第1,3,5，和最后一笔 tx，但是这批Sybil地址在tx count , 平均swap_usd,独立活跃天数，甚至在其他的action的time和address也能高度保持一致。
 ### 参数解释
