@@ -1,7 +1,7 @@
 import pandas as pd
 from tqdm import tqdm
 # 读取CSV文件
-df = pd.read_csv('/home/liyonggang/2024-05-15-snapshot1_transactions.csv')
+df = pd.read_csv('./2024-05-15-snapshot1_transactions.csv')
 
 # 统计每个SENDER_WALLET出现的次数
 sender_wallet_count = df['SENDER_WALLET'].value_counts()
